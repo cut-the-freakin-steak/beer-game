@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c24417l56y3gv"]
 
 [ext_resource type="Script" uid="uid://c1c4s5m2n4xpq" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://yxcnm1bhlhdw" path="res://scripts/anchor.gd" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(16, 26)
@@ -16,3 +17,20 @@ offset_left = -8.0
 offset_top = -13.0
 offset_right = 8.0
 offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Anchor" type="Node2D" parent="." unique_id=381792900]
+script = ExtResource("2_g2els")
+
+[node name="Weapon" type="Marker2D" parent="Anchor" unique_id=1127159325]
+position = Vector2(18, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Anchor/Weapon" unique_id=983971650]
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 5.0
+offset_bottom = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ProjectileSpawner" type="Marker2D" parent="Anchor/Weapon" unique_id=156156093]
+position = Vector2(7, 0)
