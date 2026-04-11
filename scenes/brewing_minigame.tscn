@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://utt8xrlaoo4n"]
 
 [ext_resource type="Texture2D" uid="uid://c5dfsqs32t43q" path="res://icon.svg" id="1_m8y6p"]
+[ext_resource type="Script" uid="uid://cmes70dpxxf0a" path="res://scripts/brewing_minigame.gd" id="1_vn8jr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vn8jr"]
 font_size = 32
@@ -12,13 +13,13 @@ size = Vector2(128, 30.117641)
 size = Vector2(128, 30.117641)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ycqy"]
-size = Vector2(128, 58.181763)
+size = Vector2(128, 116.363525)
 
 [sub_resource type="LabelSettings" id="LabelSettings_382k5"]
 font_size = 32
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmrlt"]
-size = Vector2(127.434784, 20.363632)
+size = Vector2(127.434784, 31.999912)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn8jr"]
 size = Vector2(128.00012, 128)
@@ -33,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vn8jr")
 
 [node name="Pot" type="Sprite2D" parent="." unique_id=1502193685]
 position = Vector2(122, 68)
@@ -40,10 +42,15 @@ scale = Vector2(0.53125, 0.53125)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="Pot" unique_id=1540102518]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -41.513504
 offset_top = -60.540527
-offset_right = 43.027023
-offset_bottom = -15.540527
+offset_right = -84.97298
+offset_bottom = -143.54053
+grow_horizontal = 2
+grow_vertical = 2
 text = "pot"
 label_settings = SubResource("LabelSettings_vn8jr")
 horizontal_alignment = 1
@@ -51,16 +58,16 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="TopArea" type="Area2D" parent="Pot" unique_id=925350733]
+position = Vector2(0, -62.117645)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/TopArea" unique_id=1748685535]
-position = Vector2(0, -62.117645)
 shape = SubResource("RectangleShape2D_sxc3d")
 
-[node name="TopArea2" type="Area2D" parent="Pot" unique_id=1533389311]
-position = Vector2(0, 122.352936)
+[node name="BottomArea" type="Area2D" parent="Pot" unique_id=1533389311]
+position = Vector2(0, 60.235306)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/TopArea2" unique_id=1771885118]
-position = Vector2(0, -62.117645)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/BottomArea" unique_id=1771885118]
+position = Vector2(0, 3.8146973e-06)
 shape = SubResource("RectangleShape2D_m8y6p")
 
 [node name="Burner" type="Sprite2D" parent="." unique_id=740178937]
@@ -69,10 +76,15 @@ scale = Vector2(0.53125, 0.17187516)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="Burner" unique_id=656833840]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -37.647064
 offset_top = -87.27266
-offset_right = 69.352936
-offset_bottom = -42.27266
+offset_right = -58.647064
+offset_bottom = -170.27266
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.68, 2.155)
 text = "burner"
 label_settings = SubResource("LabelSettings_vn8jr")
@@ -81,9 +93,9 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="Burner" unique_id=978333804]
+position = Vector2(0, -40.727234)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Burner/Area2D" unique_id=1395963129]
-position = Vector2(0, -58.181763)
 shape = SubResource("RectangleShape2D_3ycqy")
 
 [node name="Jug" type="Sprite2D" parent="." unique_id=2012766421]
@@ -92,10 +104,13 @@ scale = Vector2(0.3593751, 0.6875)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="Jug" unique_id=1750429936]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -69.56525
 offset_top = -61.090908
-offset_right = 14.975281
-offset_bottom = -16.090908
+offset_right = -113.02472
+offset_bottom = -144.09091
 scale = Vector2(1.65, 1)
 text = "jug"
 label_settings = SubResource("LabelSettings_382k5")
@@ -104,9 +119,10 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="Jug" unique_id=156829628]
+position = Vector2(0, -63.99994)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Jug/Area2D" unique_id=696051734]
-position = Vector2(0, -64.00001)
+position = Vector2(0, 5.818161)
 shape = SubResource("RectangleShape2D_gmrlt")
 
 [node name="JugLid" type="Sprite2D" parent="." unique_id=1655220614]
@@ -115,10 +131,15 @@ scale = Vector2(0.3593751, 0.06249994)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="JugLid" unique_id=1606652774]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -36.173866
 offset_top = -112.000015
-offset_right = 56.826134
-offset_bottom = -67.000015
+offset_right = -71.17387
+offset_bottom = -195.00002
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.74, 4.233)
 text = "jug lid"
 label_settings = SubResource("LabelSettings_382k5")
@@ -137,10 +158,15 @@ scale = Vector2(0.421875, 0.28125003)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="Funnel" unique_id=541565111]
-offset_left = -41.513504
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.761734
 offset_top = -60.540527
-offset_right = 43.027023
-offset_bottom = -15.540527
+offset_right = -67.761734
+offset_bottom = -143.54053
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.8, 1.29)
 text = "funnel"
 label_settings = SubResource("LabelSettings_vn8jr")
