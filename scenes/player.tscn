@@ -6,6 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 size = Vector2(16, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(16, 26)
+
 [node name="Player" type="CharacterBody2D" unique_id=1451882741]
 motion_mode = 1
 script = ExtResource("1_3vyb7")
@@ -37,3 +40,10 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(7, 0)
 
 [node name="Projectiles" type="Node" parent="Anchor" unique_id=865977524]
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1399778102]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=977242478]
+shape = SubResource("RectangleShape2D_g2els")

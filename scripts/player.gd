@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed := 10000.0
 var screen_size
+var roll_direction = Vector2.ZERO
 
 func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
@@ -22,4 +23,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, speed)
 	
+	if Input.is_action_just_pressed("roll"):
+		roll_direction = velocity.normalized()
+		velocity = 3 * (roll_direction * speed * delta)
+
 	move_and_slide()
