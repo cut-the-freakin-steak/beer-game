@@ -21,13 +21,14 @@ func _physics_process(_delta: float) -> void:
 
 func spawn_spitball() -> void:
 	var mouse_position := get_global_mouse_position() # Get the mouse position
+	var direction := projectile_spawn_pos.global_position.direction_to(mouse_position)
 
 	# instantiate makes the Node from the PackedScene
 	var spitball: Projectile = spitball_scene.instantiate()
 
 	# to put an instantiated node in the actual game (in the scene tree),
-	# add it to a node as a child
+	# add it to an existing node as a child
 	projectile_list.add_child(spitball)
 
 	spitball.global_position = projectile_spawn_pos.global_position
-	spitball.velocity = spitball.velocity.move_toward(mouse_position, spitball.speed)
+	spitball.velocity = spitball.speed * direction

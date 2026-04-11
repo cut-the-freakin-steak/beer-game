@@ -6,6 +6,7 @@
 size = Vector2(6, 4)
 
 [node name="SpitBall" type="CharacterBody2D" unique_id=1672629109]
+motion_mode = 1
 script = ExtResource("1_tmdk4")
 metadata/_custom_type_script = "uid://bla70ak4la88j"
 
