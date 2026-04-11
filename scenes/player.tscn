@@ -32,5 +32,7 @@ offset_right = 5.0
 offset_bottom = 2.0
 metadata/_edit_use_anchors_ = true
 
-[node name="ProjectileSpawner" type="Marker2D" parent="Anchor/Weapon" unique_id=156156093]
+[node name="ProjectileSpawn" type="Marker2D" parent="Anchor/Weapon" unique_id=156156093]
 position = Vector2(7, 0)
+
+[node name="Projectiles" type="Node" parent="Anchor" unique_id=865977524]

@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-
 @export var speed := 10000.0
-@onready var spit_ball_scene := preload("res://scenes/spit_ball.tscn")
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -18,11 +16,4 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, speed)
 	
-	if Input.is_action_pressed("shoot"):
-		spawn_projectile()
-	
 	move_and_slide()
-
-func spawn_projectile():
-	var spit_ball := spit_ball_scene.instantiate()
-	spit_ball.velocity = Vector2(0, 100)

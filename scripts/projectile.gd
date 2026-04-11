@@ -1,8 +1,7 @@
 extends CharacterBody2D
-class_name projectile
+class_name Projectile
 
+@export var speed: float = 300.0
 
-@export var speed := 300.0
-
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
