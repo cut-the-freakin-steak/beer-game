@@ -1,6 +1,12 @@
 extends CharacterBody2D
 
 @export var speed := 10000.0
+var screen_size
+
+func _process(delta: float) -> void:
+	screen_size = get_viewport_rect().size
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
