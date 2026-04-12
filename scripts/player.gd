@@ -22,7 +22,12 @@ func _physics_process(delta: float) -> void:
 	var _direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if _direction:
 		velocity = _direction.normalized() * speed * delta
-		$AnimatedSprite2D.play("walking")
+		if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
+			$AnimatedSprite2D.play("walking")
+		elif Input.is_action_pressed("move_up"):
+			$AnimatedSprite2D.play("walk_up")
+		elif Input.is_action_pressed("move_down"):
+			$AnimatedSprite2D.play("walk_down")
 	else:
 		velocity = Vector2.ZERO
 
