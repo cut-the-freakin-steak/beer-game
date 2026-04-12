@@ -229,7 +229,7 @@ shape = SubResource("RectangleShape2D_u8vuu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1162189442]
 sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"walk_up"
+animation = &"idle"
 
 [node name="Anchor" type="Node2D" parent="." unique_id=381792900]
 script = ExtResource("2_g2els")
@@ -259,3 +259,23 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="SpitBallSound" type="AudioStreamPlayer" parent="." unique_id=1916348207]
 stream = ExtResource("5_qlg0r")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1474628487]
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1139877126]
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 58.0
+offset_bottom = 20.0
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="HUD/HealthBar" unique_id=226895295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 3.0
+offset_right = 41.0
+offset_bottom = 15.0
+theme_override_font_sizes/font_size = 8
+text = "Health"
