@@ -5,7 +5,9 @@ class_name Enemy
 @export var ranged: bool = false
 @export var damage: int = 20
 @export var health: int = 5
-@onready var Player = $"../Player"
+@onready var Player: CharacterBody2D = $"../Player"
+@onready var PlayerHurtbox: Area2D = $"../Player/HurtBox"
+@onready var PlayerHealth: ProgressBar = $"../Player/HUD/HealthBar"
 
 func _physics_process(delta: float) -> void:
 	if ranged == false:
@@ -14,3 +16,10 @@ func _physics_process(delta: float) -> void:
 		
 
 	move_and_slide()
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if ranged == true:
+		return
+	else:
+		if area == PlayerHurtbox:
+			PlayerHealth.value -= damage

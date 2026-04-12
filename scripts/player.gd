@@ -8,6 +8,8 @@ func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	if $HUD/HealthBar.value == 0:
+		get_tree().paused = true
 
 func _physics_process(delta: float) -> void:
 	if velocity.is_zero_approx():
