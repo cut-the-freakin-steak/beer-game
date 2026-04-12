@@ -33,6 +33,8 @@ func spawn_spitball() -> void:
 	# to put an instantiated node in the actual game (in the scene tree),
 	# add it to an existing node as a child
 	projectile_list.add_child(spitball)
+	$"../SpitBallSound".pitch_scale = randf_range(0.9, 1.1)
+	$"../SpitBallSound".play()
 
 	spitball.global_position = projectile_spawn_pos.global_position
 	spitball.velocity = spitball.speed * direction
