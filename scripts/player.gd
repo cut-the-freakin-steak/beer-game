@@ -12,12 +12,17 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if velocity.is_zero_approx():
 		$AnimatedSprite2D.play("idle")
+	if Input.is_action_pressed("move_left"):
+		$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.flip_h = false
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var _direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if _direction:
 		velocity = _direction.normalized() * speed * delta
+		$AnimatedSprite2D.play("walking")
 	else:
 		velocity = Vector2.ZERO
 
