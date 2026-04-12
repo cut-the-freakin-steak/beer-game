@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bitmlp37gn4ns"]
 
 [ext_resource type="Script" uid="uid://bla70ak4la88j" path="res://scripts/projectile.gd" id="1_tmdk4"]
+[ext_resource type="Texture2D" uid="uid://fp5sgqt0ditq" path="res://assets/sprites/png sprits/spit ball.png" id="2_voff4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmdk4"]
-size = Vector2(6, 4)
+[sub_resource type="CircleShape2D" id="CircleShape2D_dudj0"]
+radius = 3.0
 
 [node name="SpitBall" type="CharacterBody2D" unique_id=1672629109]
 collision_layer = 2
@@ -12,11 +13,8 @@ motion_mode = 1
 script = ExtResource("1_tmdk4")
 metadata/_custom_type_script = "uid://bla70ak4la88j"
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=768737867]
-offset_left = -3.0
-offset_top = -2.0
-offset_right = 3.0
-offset_bottom = 2.0
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=888507554]
-shape = SubResource("RectangleShape2D_tmdk4")
+shape = SubResource("CircleShape2D_dudj0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1555415258]
+texture = ExtResource("2_voff4")
