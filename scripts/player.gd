@@ -9,6 +9,7 @@ func _process(delta: float) -> void:
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 	if $HUD/HealthBar.value == 0:
+		$GameOver.show()
 		get_tree().paused = true
 
 func _physics_process(delta: float) -> void:
@@ -38,3 +39,10 @@ func _physics_process(delta: float) -> void:
 		velocity = 3 * (roll_direction * speed * delta)
 
 	move_and_slide()
+
+func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
