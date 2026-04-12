@@ -10,19 +10,17 @@ func _process(delta: float) -> void:
 	position.y = clamp(position.y, 0, screen_size.y)
 
 func _physics_process(delta: float) -> void:
+	if velocity.is_zero_approx():
+		$AnimatedSprite2D.play("idle")
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var _directionx := Input.get_axis("move_left", "move_right")
-	var _directiony := Input.get_axis("move_up", "move_down")
-	if _directionx:
-		velocity.x = _directionx * speed * delta
+	var _direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if _direction:
+		velocity = _direction.normalized() * speed * delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-	if _directiony:
-		velocity.y = _directiony * speed * delta
-	else:
-		velocity.y = move_toward(velocity.y, 0, speed)
-	
+		velocity = Vector2.ZERO
+
 	if Input.is_action_just_pressed("roll"):
 		roll_direction = velocity.normalized()
 		velocity = 3 * (roll_direction * speed * delta)
