@@ -4,6 +4,7 @@ class_name Enemy
 @export var speed: float = 87.0
 @export var ranged: bool = false
 @export var damage: int = 20
+@export var health: int = 5
 @onready var Player = $"../Player"
 
 func _physics_process(delta: float) -> void:
@@ -13,9 +14,3 @@ func _physics_process(delta: float) -> void:
 		
 
 	move_and_slide()
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if ranged == true:
-		return
-	else:
-		$"../Player/HUD/HealthBar".value -= damage
