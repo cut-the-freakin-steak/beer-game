@@ -6,13 +6,14 @@
 size = Vector2(12, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gpeqj"]
-radius = 33.0
+radius = 107.00467
 
 [node name="Cop" type="CharacterBody2D" unique_id=1413295619]
 collision_layer = 18
 collision_mask = 20
 script = ExtResource("1_gpeqj")
 ranged = true
+health = 3
 metadata/_custom_type_script = "uid://b23djmmgtwd07"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1863191396]
@@ -35,7 +36,7 @@ offset_top = -2.0
 offset_right = 4.0
 offset_bottom = 1.0
 
-[node name="Marker2D" type="Marker2D" parent="Anchor/Gun" unique_id=36064299]
+[node name="BulletSpawner" type="Marker2D" parent="Anchor/Gun" unique_id=36064299]
 position = Vector2(6, 0)
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=396547909]
@@ -45,12 +46,11 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2053168199]
 shape = SubResource("RectangleShape2D_xbxtp")
 
-[node name="RangeToPlayer" type="Area2D" parent="." unique_id=1890287840]
+[node name="PlayerRange" type="Area2D" parent="." unique_id=1467907217]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeToPlayer" unique_id=767676390]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRange" unique_id=1521116514]
 shape = SubResource("CircleShape2D_gpeqj")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="area_entered" from="RangeToPlayer" to="." method="_on_range_to_player_area_entered"]
