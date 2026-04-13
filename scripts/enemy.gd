@@ -13,15 +13,25 @@ func _physics_process(delta: float) -> void:
 	if ranged == false:
 		var direction = Player.position - position
 		velocity = direction * speed * delta
-		
+	else:
+		if $RangeToPlayer.overlaps_area(PlayerHurtbox):
+			pass
+		else:
+			var direction = Player.position - position
+			velocity = direction * speed * delta
+		var player_position = $"../Player".global_position
+		var angle := global_position.angle_to_point(player_position)
+		$Anchor.rotation = angle
 
 	move_and_slide()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if ranged == true:
-		return
-	else:
-		if area == PlayerHurtbox:
-			$"../Player/HurtSound".pitch_scale = randf_range(0.9, 1.1)
-			$"../Player/HurtSound".play()
-			PlayerHealth.value -= damage
+	if area == PlayerHurtbox:
+		$"../Player/HurtSound".pitch_scale = randf_range(0.9, 1.1)
+		$"../Player/HurtSound".play()
+		PlayerHealth.value -= damage
+
+func _on_range_to_player_area_entered(area: Area2D) -> void:
+	if area == PlayerHurtbox:
+		var direction = Player.position - position
+		velocity = -direction * speed

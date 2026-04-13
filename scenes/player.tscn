@@ -251,8 +251,8 @@ position = Vector2(7, 0)
 [node name="Projectiles" type="Node" parent="Anchor" unique_id=865977524]
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1399778102]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 12
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=977242478]
 position = Vector2(0, 1)
