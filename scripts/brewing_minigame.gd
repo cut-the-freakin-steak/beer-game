@@ -30,8 +30,8 @@ func _ready() -> void:
 		# i like it like this because you can see all of the signals in the code
 		# instead of having to look in the editor
 		# you dont have to do this if you don't want to
-		area.mouse_entered.connect(_mouse_entered_shape.bind(area))
-		area.mouse_exited.connect(_mouse_exited_shape.bind(area))
+		area.mouse_entered.connect(_mouse_entered_thing.bind(area))
+		area.mouse_exited.connect(_mouse_exited_thing.bind(area))
 	
 	burner_area.area_entered.connect(_burner_area_entered)
 
@@ -50,12 +50,14 @@ func _process(delta: float):
 			resting_position = mouse_position
 			drag_velocity = (mouse_position - last_mouse_position) / delta
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
+
 		else:
+			var moving_but_no_mouse = true
 			collision_body.global_position = lerp(collision_body.global_position, resting_position, 0.1)
 
 	# pot bottom area burner area
 
-func _mouse_entered_shape(body: Area2D) -> void:
+func _mouse_entered_thing(body: Area2D) -> void:
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		return
 
@@ -68,7 +70,7 @@ func _mouse_entered_shape(body: Area2D) -> void:
 	body_parent.top_level = true
 	body_parent.z_index = 1
 
-func _mouse_exited_shape(body: Area2D) -> void:
+func _mouse_exited_thing(body: Area2D) -> void:
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		return
 
