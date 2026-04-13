@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed := 10000.0
 var screen_size
 var roll_direction = Vector2.ZERO
+@onready var dodge_timer: Timer = $DodgeTimer
 
 func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
@@ -34,9 +35,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector2.ZERO
 
-	if Input.is_action_just_pressed("roll"):
+	if Input.is_action_just_pressed("roll") and dodge_timer.is_stopped():
 		roll_direction = velocity.normalized()
-		velocity = 3 * (roll_direction * speed * delta)
+		velocity = 15 * (roll_direction * speed * delta)
+		$HurtBox.monitorable = false
+		dodge_timer.start()
+	else:
+		$HurtBox.monitorable = true
 
 	move_and_slide()
 

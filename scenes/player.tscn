@@ -312,5 +312,9 @@ text = "Quit"
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="." unique_id=1267305037]
 stream = ExtResource("8_smehm")
 
+[node name="DodgeTimer" type="Timer" parent="." unique_id=1799321628]
+wait_time = 0.4
+one_shot = true
+
 [connection signal="pressed" from="GameOver/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="GameOver/QuitButton" to="." method="_on_quit_button_pressed"]
