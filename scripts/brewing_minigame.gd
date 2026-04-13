@@ -30,12 +30,35 @@ func _ready() -> void:
 		# i like it like this because you can see all of the signals in the code
 		# instead of having to look in the editor
 		# you dont have to do this if you don't want to
-		area.mouse_entered.connect(_mouse_entered_thing.bind(area))
-		area.mouse_exited.connect(_mouse_exited_thing.bind(area))
+		# area.mouse_entered.connect(_mouse_entered_thing.bind(area))
+		# area.mouse_exited.connect(_mouse_exited_thing.bind(area))
 	
 	burner_area.area_entered.connect(_burner_area_entered)
 
 func _process(delta: float):
+	for node in get_tree().get_nodes_in_group("BrewingMouseInteractables"):
+		var area: Area2D = node
+		var area_parent: Sprite2D = area.get_parent()
+		var area_collision: CollisionShape2D = area.get_node("CollisionShape2D")
+		var mouse_position := get_global_mouse_position()
+		if area_collision.shape.get_rect().has_point(area.to_local(mouse_position)):
+			if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+				gonna_mouse_collide = true
+				resting_position = area.global_position
+				collision_target = weakref(area)
+
+				area_parent.visibility_layer = 2
+				area_parent.top_level = true
+				area_parent.z_index = 1
+				print("today i learned about the epnis and v agina")
+		else:
+			if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+				gonna_mouse_collide = false
+
+				area_parent.visibility_layer = 1
+				area_parent.top_level = false
+				area_parent.z_index = 0
+
 	if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		if gonna_mouse_collide and collision_target.get_ref() == null:
 			gonna_mouse_collide = false
@@ -52,7 +75,6 @@ func _process(delta: float):
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
 
 		else:
-			var moving_but_no_mouse = true
 			collision_body.global_position = lerp(collision_body.global_position, resting_position, 0.1)
 
 	# pot bottom area burner area

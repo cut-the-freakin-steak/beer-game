@@ -5,7 +5,7 @@ var screen_size
 var roll_direction = Vector2.ZERO
 @onready var dodge_timer: Timer = $DodgeTimer
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	screen_size = get_viewport_rect().size
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
