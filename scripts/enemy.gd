@@ -22,4 +22,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		return
 	else:
 		if area == PlayerHurtbox:
+			$"../Player/HurtSound".pitch_scale = randf_range(0.9, 1.1)
+			$"../Player/HurtSound".play()
 			PlayerHealth.value -= damage
