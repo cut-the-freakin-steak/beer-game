@@ -236,22 +236,22 @@ animation = &"idle"
 [node name="Anchor" type="Node2D" parent="." unique_id=381792900]
 script = ExtResource("2_g2els")
 
-[node name="Weapon" type="Marker2D" parent="Anchor" unique_id=1127159325]
+[node name="SpitBall" type="Marker2D" parent="Anchor" unique_id=1127159325]
 position = Vector2(18, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Anchor/Weapon" unique_id=108359597]
+[node name="Sprite2D" type="Sprite2D" parent="Anchor/SpitBall" unique_id=108359597]
 scale = Vector2(0.609375, 0.546875)
 texture = ExtResource("7_ur7pv")
 metadata/_edit_use_anchors_ = true
 
-[node name="ProjectileSpawn" type="Marker2D" parent="Anchor/Weapon" unique_id=156156093]
+[node name="ProjectileSpawn" type="Marker2D" parent="Anchor/SpitBall" unique_id=156156093]
 position = Vector2(7, 0)
 
 [node name="Projectiles" type="Node" parent="Anchor" unique_id=865977524]
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1399778102]
-collision_layer = 12
-collision_mask = 12
+collision_layer = 140
+collision_mask = 140
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=977242478]
 position = Vector2(0, 1)

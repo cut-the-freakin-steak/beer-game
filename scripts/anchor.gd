@@ -5,7 +5,7 @@ extends Node2D
 # such as this spitball scene.
 # load is used for mostly single instantiation stuff, like a one-time object you need to spawn
 @onready var projectile_list: Node = $Projectiles
-@onready var projectile_spawn_pos: Marker2D = $Weapon/ProjectileSpawn
+@onready var projectile_spawn_pos: Marker2D = $Spitball/ProjectileSpawn
 @onready var spitball_scene: PackedScene = preload("res://scenes/spit_ball.tscn")
 var can_shoot := true
 

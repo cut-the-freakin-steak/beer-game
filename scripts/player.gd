@@ -4,6 +4,7 @@ extends CharacterBody2D
 var screen_size
 var roll_direction = Vector2.ZERO
 @onready var dodge_timer: Timer = $DodgeTimer
+var has_weapon: bool = false
 
 func _process(_delta: float) -> void:
 	screen_size = get_viewport_rect().size
@@ -42,6 +43,14 @@ func _physics_process(delta: float) -> void:
 		dodge_timer.start()
 	else:
 		$HurtBox.monitorable = true
+	
+	if has_weapon == true:
+		if Input.is_action_pressed("weapon2"):
+			$Anchor/SpitBall.hide()
+			$Anchor/BeerBottleWeapon.show()
+		elif Input.is_action_pressed("spitball"):
+			$Anchor/SpitBall.show()
+			$Anchor/BeerBottleWeapon.hide()
 
 	move_and_slide()
 
