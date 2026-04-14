@@ -28,3 +28,8 @@ offset_top = -30.0
 offset_right = 7.0
 offset_bottom = -7.0
 text = "E"
+
+[node name="Range" type="RayCast2D" parent="." unique_id=2140004490]
+position = Vector2(-13, 0)
+target_position = Vector2(46, 0)
+collision_mask = 6
