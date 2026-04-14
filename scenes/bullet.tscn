@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bskuteri0crfq"]
+
+[ext_resource type="Script" uid="uid://dc4cmqd7woyc6" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://fp5sgqt0ditq" path="res://assets/sprites/png sprits/spit ball.png" id="2_l5glv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dudj0"]
+radius = 3.0
+
+[node name="Bullet" type="CharacterBody2D" unique_id=2044424005]
+collision_layer = 4
+collision_mask = 4
+motion_mode = 1
+script = ExtResource("1_y25gk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=888507554]
+shape = SubResource("CircleShape2D_dudj0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1555415258]
+texture = ExtResource("2_l5glv")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1463017148]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1932937379]
+shape = SubResource("CircleShape2D_dudj0")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

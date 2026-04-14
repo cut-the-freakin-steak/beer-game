@@ -13,6 +13,7 @@ collision_layer = 18
 collision_mask = 20
 script = ExtResource("1_gpeqj")
 ranged = true
+damage = 10
 health = 3
 metadata/_custom_type_script = "uid://b23djmmgtwd07"
 
@@ -52,5 +53,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRange" unique_id=1521116514]
 shape = SubResource("CircleShape2D_gpeqj")
+
+[node name="Bullets" type="Node" parent="." unique_id=1481323518]
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

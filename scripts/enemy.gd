@@ -1,16 +1,24 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var speed: float = 1750.0
+@export var speed: float = 1900.0
 @export var ranged: bool = false
 @export var damage: int = 20
 @export var health: int = 5
+@export var cooldown: float = 1
 @onready var Player: CharacterBody2D = $"../Player"
 @onready var PlayerHurtbox: Area2D = $"../Player/HurtBox"
 @onready var PlayerHealth: ProgressBar = $"../Player/HUD/HealthBar"
-@onready var spitball_scene: PackedScene = preload("res://scenes/spit_ball.tscn")
+@onready var bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
 @onready var BulletSpawner: Marker2D = $Anchor/Gun/BulletSpawner
+var can_shoot = true
+var screen_size
 var wanted_distance = 90
+
+func _process(delta: float) -> void:
+	screen_size = get_viewport_rect().size
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 
 func _physics_process(delta: float) -> void:
 	if ranged == false:
@@ -28,8 +36,11 @@ func _physics_process(delta: float) -> void:
 		var player_position = $"../Player".global_position
 		var angle := global_position.angle_to_point(player_position)
 		$Anchor.rotation = angle
-		if $PlayerRange.overlaps_area(PlayerHurtbox):
+		if $PlayerRange.overlaps_area(PlayerHurtbox) and can_shoot == true:
 			spawn_bullet()
+			can_shoot = false
+			await get_tree().create_timer(cooldown).timeout
+			can_shoot = true
 
 	move_and_slide()
 
@@ -41,6 +52,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func spawn_bullet() -> void:
 	var direction = global_position.direction_to(Player.global_position)
-	var spitball: Projectile = spitball_scene.instantiate()
-	spitball.global_position = BulletSpawner.global_position
-	spitball.velocity = spitball.speed * direction
+	var bullet: CharacterBody2D = bullet_scene.instantiate()
+	$Bullets.add_child(bullet)
+	bullet.global_position = BulletSpawner.global_position
+	bullet.velocity = bullet.speed * direction
