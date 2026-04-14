@@ -5,7 +5,7 @@ extends Node2D
 # such as this spitball scene.
 # load is used for mostly single instantiation stuff, like a one-time object you need to spawn
 @onready var projectile_list: Node = $Projectiles
-@onready var projectile_spawn_pos: Marker2D = $Spitball/ProjectileSpawn
+@onready var projectile_spawn_pos: Marker2D = $SpitBall/ProjectileSpawn
 @onready var spitball_scene: PackedScene = preload("res://scenes/spit_ball.tscn")
 var can_shoot := true
 
@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 	rotation = angle # Gives the anchor the angle
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot") and can_shoot == true:
+	if Input.is_action_just_pressed("shoot") and can_shoot == true and $SpitBall.visible == true:
 		spawn_spitball()
 		can_shoot = false
 		await get_tree().create_timer(0.2).timeout

@@ -4,6 +4,8 @@ extends CharacterBody2D
 var screen_size
 var roll_direction = Vector2.ZERO
 @onready var dodge_timer: Timer = $DodgeTimer
+@onready var spitball: Marker2D = $Anchor/SpitBall
+@onready var BeerWeapon: Weapons = $Anchor/BeerBottleWeapon
 var has_weapon: bool = false
 
 func _process(_delta: float) -> void:
@@ -46,11 +48,11 @@ func _physics_process(delta: float) -> void:
 	
 	if has_weapon == true:
 		if Input.is_action_pressed("weapon2"):
-			$Anchor/SpitBall.hide()
-			$Anchor/BeerBottleWeapon.show()
+			spitball.hide()
+			BeerWeapon.show()
 		elif Input.is_action_pressed("spitball"):
-			$Anchor/SpitBall.show()
-			$Anchor/BeerBottleWeapon.hide()
+			spitball.show()
+			BeerWeapon.hide()
 
 	move_and_slide()
 
@@ -60,3 +62,6 @@ func _on_restart_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_beer_bottle_weapon_new_weapon() -> void:
+	spitball.hide()
