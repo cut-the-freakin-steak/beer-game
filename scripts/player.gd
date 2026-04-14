@@ -49,10 +49,8 @@ func _physics_process(delta: float) -> void:
 	if has_weapon == true:
 		if Input.is_action_pressed("weapon2"):
 			spitball.hide()
-			BeerWeapon.show()
 		elif Input.is_action_pressed("spitball"):
 			spitball.show()
-			BeerWeapon.hide()
 
 	move_and_slide()
 
@@ -62,6 +60,3 @@ func _on_restart_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-
-func _on_beer_bottle_weapon_new_weapon() -> void:
-	spitball.hide()

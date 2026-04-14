@@ -11,6 +11,4 @@ position = Vector2(28, 31)
 [node name="BeerBottleWeapon" parent="." unique_id=1328153436 instance=ExtResource("4_jyhfs")]
 position = Vector2(151, 79)
 
-[connection signal="new_weapon" from="BeerBottleWeapon" to="Player" method="_on_beer_bottle_weapon_new_weapon"]
-
 [editable path="Player"]
