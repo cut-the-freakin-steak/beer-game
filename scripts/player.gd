@@ -60,3 +60,6 @@ func _on_restart_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_beer_bottle_weapon_new_weapon() -> void:
+	spitball.hide()

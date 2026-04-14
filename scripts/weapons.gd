@@ -1,9 +1,11 @@
 extends Marker2D
 class_name Weapons
 
+signal new_weapon
+
 @onready var Player: CharacterBody2D = $"../Player"
 @onready var PlayerHurtbox: Area2D = $"../Player/HurtBox"
-@onready var WeaponDefault: Marker2D = $"../WeaponDefault"
+@onready var WeaponDefault: Marker2D = $"../Player/Anchor/WeaponDefault"
 @onready var BeerWeaponScene: PackedScene = preload("res://scenes/beer_bottle_weapon.tscn")
 var can_shoot := true
 var has_weapon: bool = false
@@ -36,4 +38,5 @@ func _process(delta: float) -> void:
 		var BeerWeapon: Weapons = BeerWeaponScene.instantiate()
 		$"../Player/Anchor".add_child(BeerWeapon)
 		BeerWeapon.global_position = WeaponDefault.global_position
+		new_weapon.emit()
 		ran = true
