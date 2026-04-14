@@ -16,6 +16,7 @@ extends Control
 @onready var burner: Sprite2D = $Burner
 @onready var jug: Sprite2D = $Jug
 @onready var jug_lid: Sprite2D = $JugLid
+@onready var funnel: Sprite2D = $Funnel
 
 var gonna_mouse_collide: bool = false
 var dragging: bool = false
@@ -24,8 +25,12 @@ var drag_velocity: Vector2 = Vector2.ZERO
 var last_mouse_position: Vector2 = Vector2.ZERO
 var resting_position: Vector2 = Vector2(0, 0)
 var things_mouse_on: Array[Area2D] = []
+
 var pot_bottom_should_snap: bool = false
 var jug_lid_should_snap: bool = false
+var jug_lid_snapped: bool = false
+var funnel_should_snap: bool = false
+var funnel_snapped: bool = false
 
 func _ready() -> void:
 	# i love groups. you can mark certain nodes and then just do stuff on those nodes
@@ -50,14 +55,24 @@ func _process(delta: float):
 	thing_dragging_system(delta)
 
 	if pot_bottom_should_snap:
-		pot.global_position = burner.global_position - Vector2(0, 35)
-		pot_bottom_should_snap = false
-		gonna_mouse_collide = false
+		if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+			pot.global_position = burner.global_position - Vector2(0, 35)
+			pot_bottom_should_snap = false
+			gonna_mouse_collide = false
 
 	if jug_lid_should_snap:
-		jug_lid.global_position = jug.global_position - Vector2(0, 45)
-		jug_lid_should_snap = false
-		gonna_mouse_collide = false
+		if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+			jug_lid.global_position = jug.global_position - Vector2(0, 45)
+			jug_lid_snapped = true
+			jug_lid_should_snap = false
+			gonna_mouse_collide = false
+	
+	if funnel_should_snap:
+		if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+			funnel.global_position = pot.global_position - Vector2(0, 45)
+			funnel_snapped = true
+			funnel_should_snap = false
+			gonna_mouse_collide = false
 
 func _mouse_entered_thing(area: Area2D) -> void:
 	if things_mouse_on.has(area):
@@ -115,6 +130,17 @@ func thing_dragging_system(delta: float) -> void:
 			resting_position = mouse_position
 			drag_velocity = (mouse_position - last_mouse_position) / delta
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
+			if collision_body == jug and jug_lid_snapped:
+				jug_lid.global_position = jug.global_position - Vector2(0, 45)
+
+			elif collision_body == jug_lid and jug_lid_snapped:
+				jug_lid_snapped = false
+
+			elif collision_body_area == pot_top_area and funnel_snapped:
+				funnel.global_position = pot.global_position - Vector2(0, 45)
+
+			elif collision_body == funnel and funnel_snapped:
+				funnel_snapped = false
 
 		else:
 			collision_body.global_position = lerp(collision_body.global_position, resting_position, 0.1)
