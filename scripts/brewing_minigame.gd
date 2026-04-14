@@ -74,6 +74,29 @@ func _process(delta: float):
 			funnel_should_snap = false
 			gonna_mouse_collide = false
 
+	if jug_lid_snapped and not dragging:
+		jug_lid.z_index = 2
+		jug.z_index = 1
+	
+	elif jug_lid_snapped and dragging:
+		jug_lid.z_index = 1
+		jug.z_index = 0
+	
+	if funnel_snapped and not dragging:
+		funnel.z_index = 2
+		pot.z_index = 1
+	
+	elif funnel_snapped and dragging:
+		funnel.z_index = 1
+		pot.z_index = 0
+	
+	print("pot z_index = " + str(pot.z_index))
+	print("jug z_index = " + str(jug.z_index))
+	print("jug lid z_index = " + str(jug_lid.z_index))
+
+	# elif not funnel_snapped and not things_mouse_on.is_empty() and things_mouse_on.back() != funnel_area and not dragging:
+	# 	funnel.z_index = 0
+
 func _mouse_entered_thing(area: Area2D) -> void:
 	if things_mouse_on.has(area):
 		things_mouse_on.erase(area)
@@ -86,6 +109,7 @@ func _mouse_exited_thing(area: Area2D) -> void:
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		return
 
+	print("ermmm why are the here")
 	area.get_parent().z_index = 0
 	gonna_mouse_collide = false
 
@@ -115,7 +139,11 @@ func thing_dragging_system(delta: float) -> void:
 			collision_target = weakref(things_mouse_on.back())
 
 			var body_parent: Sprite2D = things_mouse_on.back().get_parent()
-			body_parent.z_index = 1
+			if dragging:
+				body_parent.z_index = 0
+
+			else:
+				body_parent.z_index = 1
 
 			gonna_mouse_collide = true
 			resting_position = things_mouse_on.back().global_position
@@ -130,6 +158,7 @@ func thing_dragging_system(delta: float) -> void:
 			resting_position = mouse_position
 			drag_velocity = (mouse_position - last_mouse_position) / delta
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
+
 			if collision_body == jug and jug_lid_snapped:
 				jug_lid.global_position = jug.global_position - Vector2(0, 45)
 
@@ -144,3 +173,9 @@ func thing_dragging_system(delta: float) -> void:
 
 		else:
 			collision_body.global_position = lerp(collision_body.global_position, resting_position, 0.1)
+
+			if collision_body == jug and jug_lid_snapped:
+				jug_lid.global_position = jug.global_position - Vector2(0, 45)
+
+			elif collision_body_area == pot_top_area and funnel_snapped:
+				funnel.global_position = pot.global_position - Vector2(0, 45)
