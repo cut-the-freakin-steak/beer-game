@@ -45,7 +45,7 @@ script = ExtResource("1_vn8jr")
 
 [node name="Burner" type="Sprite2D" parent="." unique_id=740178937]
 position = Vector2(158, 163)
-scale = Vector2(0.53125, 0.17187516)
+scale = Vector2(0.5625, 0.17187516)
 texture = ExtResource("1_m8y6p")
 
 [node name="Label" type="Label" parent="Burner" unique_id=656833840]
@@ -94,8 +94,10 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="JugLid" unique_id=1879626728 groups=["BrewingMouseInteractables"]]
+position = Vector2(6.1035156e-05, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JugLid/Area2D" unique_id=1136228242]
+position = Vector2(6.1035156e-05, 0)
 shape = SubResource("RectangleShape2D_vn8jr")
 
 [node name="Funnel" type="Sprite2D" parent="." unique_id=1704878630]

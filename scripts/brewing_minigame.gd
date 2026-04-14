@@ -18,6 +18,7 @@ var collision_target: WeakRef
 var drag_velocity: Vector2 = Vector2.ZERO
 var last_mouse_position: Vector2 = Vector2.ZERO
 var resting_position: Vector2 = Vector2(0, 0)
+var things_mouse_on: Array[Area2D] = []
 
 func _ready() -> void:
 	# i love groups. you can mark certain nodes and then just do stuff on those nodes
@@ -30,38 +31,29 @@ func _ready() -> void:
 		# i like it like this because you can see all of the signals in the code
 		# instead of having to look in the editor
 		# you dont have to do this if you don't want to
-		# area.mouse_entered.connect(_mouse_entered_thing.bind(area))
-		# area.mouse_exited.connect(_mouse_exited_thing.bind(area))
+		area.mouse_entered.connect(_mouse_entered_thing.bind(area))
+		area.mouse_exited.connect(_mouse_exited_thing.bind(area))
 	
 	burner_area.area_entered.connect(_burner_area_entered)
 
 func _process(delta: float):
-	for node in get_tree().get_nodes_in_group("BrewingMouseInteractables"):
-		var area: Area2D = node
-		var area_parent: Sprite2D = area.get_parent()
-		var area_collision: CollisionShape2D = area.get_node("CollisionShape2D")
-		var mouse_position := get_global_mouse_position()
-		if area_collision.shape.get_rect().has_point(area.to_local(mouse_position)):
-			if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-				gonna_mouse_collide = true
-				resting_position = area.global_position
-				collision_target = weakref(area)
+	print(things_mouse_on)
+	
+	if not things_mouse_on.is_empty():
+		var not_last_thing_mouse_on = things_mouse_on.duplicate(true)
+		not_last_thing_mouse_on.pop_back()
+		for area in not_last_thing_mouse_on:
+			area.get_parent().z_index = 0
 
-				area_parent.visibility_layer = 2
-				area_parent.top_level = true
-				area_parent.z_index = 1
-				print("today i learned about the epnis and v agina")
-		else:
-			if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-				gonna_mouse_collide = false
+		if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+			gonna_mouse_collide = true
+			collision_target = weakref(things_mouse_on.back())
 
-				area_parent.visibility_layer = 1
-				area_parent.top_level = false
-				area_parent.z_index = 0
+			var body_parent: Sprite2D = things_mouse_on.back().get_parent()
+			body_parent.z_index = 1
 
-	if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-		if gonna_mouse_collide and collision_target.get_ref() == null:
-			gonna_mouse_collide = false
+			gonna_mouse_collide = true
+			resting_position = things_mouse_on.back().global_position
 
 	if gonna_mouse_collide:
 		var mouse_position = get_global_mouse_position()
@@ -70,6 +62,7 @@ func _process(delta: float):
 		var collision_body: Sprite2D = collision_body_area.get_parent()
 
 		if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+			print("got here i guess")
 			resting_position = mouse_position
 			drag_velocity = (mouse_position - last_mouse_position) / delta
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
@@ -80,28 +73,19 @@ func _process(delta: float):
 	# pot bottom area burner area
 
 func _mouse_entered_thing(body: Area2D) -> void:
-	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-		return
+	if things_mouse_on.has(body):
+		things_mouse_on.erase(body)
 
-	gonna_mouse_collide = true
-	resting_position = body.global_position
-	collision_target = weakref(body)
-
-	var body_parent = body.get_parent()
-	body_parent.visibility_layer = 2
-	body_parent.top_level = true
-	body_parent.z_index = 1
+	things_mouse_on.append(body)
 
 func _mouse_exited_thing(body: Area2D) -> void:
+	things_mouse_on.erase(body)
+
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		return
 
+	body.get_parent().z_index = 0
 	gonna_mouse_collide = false
-
-	var body_parent = body.get_parent()
-	body_parent.visibility_layer = 1
-	body_parent.top_level = false
-	body_parent.z_index = 0
 
 func _burner_area_entered(body: Area2D):
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
