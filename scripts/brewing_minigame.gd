@@ -12,6 +12,11 @@ extends Control
 @onready var funnel_area: Area2D = $Funnel/Area2D
 @onready var burner_area: Area2D = $Burner/Area2D
 
+@onready var pot: Sprite2D = $Pot
+@onready var burner: Sprite2D = $Burner
+@onready var jug: Sprite2D = $Jug
+@onready var jug_lid: Sprite2D = $JugLid
+
 var gonna_mouse_collide: bool = false
 var dragging: bool = false
 var collision_target: WeakRef
@@ -19,6 +24,8 @@ var drag_velocity: Vector2 = Vector2.ZERO
 var last_mouse_position: Vector2 = Vector2.ZERO
 var resting_position: Vector2 = Vector2(0, 0)
 var things_mouse_on: Array[Area2D] = []
+var pot_bottom_should_snap: bool = false
+var jug_lid_should_snap: bool = false
 
 func _ready() -> void:
 	# i love groups. you can mark certain nodes and then just do stuff on those nodes
@@ -35,10 +42,53 @@ func _ready() -> void:
 		area.mouse_exited.connect(_mouse_exited_thing.bind(area))
 	
 	burner_area.area_entered.connect(_burner_area_entered)
+	burner_area.area_exited.connect(_burner_area_exited)
+	jug_lid_area.area_entered.connect(_jug_lid_area_entered)
+	jug_lid_area.area_exited.connect(_jug_lid_area_exited)
 
 func _process(delta: float):
-	print(things_mouse_on)
-	
+	thing_dragging_system(delta)
+
+	if pot_bottom_should_snap:
+		pot.global_position = burner.global_position - Vector2(0, 35)
+		pot_bottom_should_snap = false
+		gonna_mouse_collide = false
+
+	if jug_lid_should_snap:
+		jug_lid.global_position = jug.global_position - Vector2(0, 45)
+		jug_lid_should_snap = false
+		gonna_mouse_collide = false
+
+func _mouse_entered_thing(area: Area2D) -> void:
+	if things_mouse_on.has(area):
+		things_mouse_on.erase(area)
+
+	things_mouse_on.append(area)
+
+func _mouse_exited_thing(area: Area2D) -> void:
+	things_mouse_on.erase(area)
+
+	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+		return
+
+	area.get_parent().z_index = 0
+	gonna_mouse_collide = false
+
+func _burner_area_entered(area: Area2D) -> void:
+	if area == pot_bottom_area:
+		pot_bottom_should_snap = true
+
+func _burner_area_exited(_area: Area2D) -> void:
+	print("its not slop")
+
+func _jug_lid_area_entered(area: Area2D) -> void:
+	if area == jug_top_area:
+		jug_lid_should_snap = true
+
+func _jug_lid_area_exited(_area: Area2D) -> void:
+	print("if its good")
+
+func thing_dragging_system(delta: float) -> void:
 	if not things_mouse_on.is_empty():
 		var not_last_thing_mouse_on = things_mouse_on.duplicate(true)
 		not_last_thing_mouse_on.pop_back()
@@ -62,34 +112,9 @@ func _process(delta: float):
 		var collision_body: Sprite2D = collision_body_area.get_parent()
 
 		if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-			print("got here i guess")
 			resting_position = mouse_position
 			drag_velocity = (mouse_position - last_mouse_position) / delta
 			collision_body.global_position = lerp(collision_body.global_position, mouse_position, 0.2)
 
 		else:
 			collision_body.global_position = lerp(collision_body.global_position, resting_position, 0.1)
-
-	# pot bottom area burner area
-
-func _mouse_entered_thing(body: Area2D) -> void:
-	if things_mouse_on.has(body):
-		things_mouse_on.erase(body)
-
-	things_mouse_on.append(body)
-
-func _mouse_exited_thing(body: Area2D) -> void:
-	things_mouse_on.erase(body)
-
-	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-		return
-
-	body.get_parent().z_index = 0
-	gonna_mouse_collide = false
-
-func _burner_area_entered(body: Area2D):
-	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-		return
-
-	if body == pot_bottom_area:
-		print("heyo")

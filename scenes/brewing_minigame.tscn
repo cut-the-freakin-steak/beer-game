@@ -7,7 +7,7 @@
 font_size = 32
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ycqy"]
-size = Vector2(128, 116.363525)
+size = Vector2(128, 81.45447)
 
 [sub_resource type="LabelSettings" id="LabelSettings_382k5"]
 font_size = 32
@@ -22,16 +22,16 @@ size = Vector2(127.999985, 128)
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmrlt"]
-size = Vector2(127.434784, 31.999912)
+size = Vector2(83.47827, 29.090822)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pfb7c"]
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxc3d"]
-size = Vector2(128, 30.117641)
+size = Vector2(86.58826, 37.647057)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8y6p"]
-size = Vector2(128, 30.117641)
+size = Vector2(86.58826, 37.647095)
 
 [node name="BrewingMinigame" type="Control" unique_id=726642216]
 layout_mode = 3
@@ -66,7 +66,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="Burner" unique_id=978333804]
-position = Vector2(0, -40.727234)
+position = Vector2(0, -23.272705)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Burner/Area2D" unique_id=1395963129]
 shape = SubResource("RectangleShape2D_3ycqy")
@@ -153,10 +153,10 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_tke1d")
 
 [node name="TopArea" type="Area2D" parent="Jug" unique_id=156829628]
-position = Vector2(0, -63.99994)
+position = Vector2(0, -59.636307)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Jug/TopArea" unique_id=696051734]
-position = Vector2(0, 5.818161)
+position = Vector2(0, -2.2888184e-05)
 shape = SubResource("RectangleShape2D_gmrlt")
 
 [node name="Pot" type="Sprite2D" parent="." unique_id=1502193685]
@@ -186,14 +186,14 @@ metadata/_edit_use_anchors_ = true
 shape = SubResource("RectangleShape2D_pfb7c")
 
 [node name="TopArea" type="Area2D" parent="Pot" unique_id=925350733]
-position = Vector2(0, -62.117645)
+position = Vector2(0, -60.23529)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/TopArea" unique_id=1748685535]
 shape = SubResource("RectangleShape2D_sxc3d")
 
 [node name="BottomArea" type="Area2D" parent="Pot" unique_id=1533389311]
-position = Vector2(0, 60.235306)
+position = Vector2(0, 60.235313)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/BottomArea" unique_id=1771885118]
-position = Vector2(0, 3.8146973e-06)
+position = Vector2(0, -1.5258789e-05)
 shape = SubResource("RectangleShape2D_m8y6p")
