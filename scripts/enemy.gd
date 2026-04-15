@@ -16,6 +16,9 @@ var can_shoot = true
 var screen_size
 var wanted_distance = 90
 
+func _ready() -> void:
+	add_to_group("enemy")
+
 func _process(delta: float) -> void:
 	screen_size = get_viewport_rect().size
 	position.x = clamp(position.x, 0, screen_size.x)

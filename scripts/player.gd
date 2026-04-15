@@ -5,14 +5,13 @@ var screen_size
 var roll_direction = Vector2.ZERO
 @onready var dodge_timer: Timer = $DodgeTimer
 @onready var spitball: Marker2D = $Anchor/SpitBall
-@onready var BeerWeapon: Weapons = $Anchor/BeerBottleWeapon
 var has_weapon: bool = false
 
 func _process(_delta: float) -> void:
 	screen_size = get_viewport_rect().size
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
-	if $HUD/HealthBar.value == 0:
+	if $HUD/HealthBar.value <= 0:
 		$GameOver.show()
 		get_tree().paused = true
 

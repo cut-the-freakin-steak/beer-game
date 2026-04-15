@@ -17,24 +17,7 @@ var has_weapon: bool = false
 var ran: bool = false
 var default_weapon_place = Vector2.RIGHT
 
-func _physics_process(delta: float) -> void:
-	if has_weapon == true:
-		var mouse_position := get_global_mouse_position()
-		var angle := global_position.angle_to_point(mouse_position)
-		rotation = angle
-		if Input.is_action_just_pressed("spitball"):
-			hide()
-		if Input.is_action_just_pressed("weapon2"):
-			show()
-			if Input.is_action_pressed("shoot"):
-				if $Range.is_colliding():
-					var enemy = $Range.get_collider()
-					print(enemy)
-					enemy.health -= damage
-					queue_free()
-					if enemy.health == 0:
-						enemy.queue_free()
-
+func _process(_delta: float) -> void:
 	if ran == false:
 		if $PickUpRange.overlaps_area(PlayerHurtbox) == false:
 			$PickUpRange/Label.hide()
@@ -51,3 +34,19 @@ func _physics_process(delta: float) -> void:
 		BeerWeapon.global_position = WeaponDefault.global_position
 		new_weapon.emit()
 		ran = true
+
+	if has_weapon == true:
+		var mouse_position := get_global_mouse_position()
+		var angle := global_position.angle_to_point(mouse_position)
+		rotation = angle
+		if Input.is_action_just_pressed("spitball"):
+			hide()
+		if Input.is_action_just_pressed("weapon2"):
+			show()
+		if Input.is_action_pressed("shoot") and visible == true:
+			if $Range.is_colliding():
+				var hit = $Range.get_collider()
+				if hit.is_in_group("enemy"):
+					hit.health -= damage
+					if hit.health == 0:
+						hit.queue_free()
