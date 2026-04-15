@@ -47,9 +47,8 @@ func _ready() -> void:
 		area.mouse_exited.connect(_mouse_exited_thing.bind(area))
 	
 	burner_area.area_entered.connect(_burner_area_entered)
-	burner_area.area_exited.connect(_burner_area_exited)
 	jug_lid_area.area_entered.connect(_jug_lid_area_entered)
-	jug_lid_area.area_exited.connect(_jug_lid_area_exited)
+	funnel_area.area_entered.connect(_funnel_area_entered)
 
 func _process(delta: float):
 	thing_dragging_system(delta)
@@ -69,33 +68,54 @@ func _process(delta: float):
 	
 	if funnel_should_snap:
 		if not Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-			funnel.global_position = pot.global_position - Vector2(0, 45)
+			funnel.global_position = pot.global_position - Vector2(0, 25)
 			funnel_snapped = true
 			funnel_should_snap = false
 			gonna_mouse_collide = false
 
 	if jug_lid_snapped and not dragging:
-		jug_lid.z_index = 2
-		jug.z_index = 1
+		jug_lid.z_index = 1
+		# jug.z_index = 1
 	
 	elif jug_lid_snapped and dragging:
-		jug_lid.z_index = 1
-		jug.z_index = 0
+		jug_lid.z_index = 0
+		# jug.z_index = 0
 	
 	if funnel_snapped and not dragging:
-		funnel.z_index = 2
-		pot.z_index = 1
+		funnel.z_index = 1
+		# pot.z_index = 1
 	
 	elif funnel_snapped and dragging:
-		funnel.z_index = 1
-		pot.z_index = 0
-	
-	print("pot z_index = " + str(pot.z_index))
-	print("jug z_index = " + str(jug.z_index))
-	print("jug lid z_index = " + str(jug_lid.z_index))
+		funnel.z_index = 0
+		# pot.z_index = 0
 
-	# elif not funnel_snapped and not things_mouse_on.is_empty() and things_mouse_on.back() != funnel_area and not dragging:
-	# 	funnel.z_index = 0
+	if jug_lid_snapped:
+		if gonna_mouse_collide:
+			if not things_mouse_on.is_empty():
+				var target: Area2D = things_mouse_on.back()
+				if target == jug_main_area:
+					print("raghh")
+					pass
+
+				elif target.get_parent() == jug:
+					jug_lid.z_index -= 1
+
+				else:
+					jug_lid.z_index -= 1
+
+	if funnel_snapped:
+		if gonna_mouse_collide:
+			if not things_mouse_on.is_empty():
+				var target: Area2D = things_mouse_on.back()
+				if target == pot_main_area:
+					print("waghh")
+					pass
+
+				elif target.get_parent() == pot:
+					funnel.z_index -= 1
+
+				else:
+					funnel.z_index -= 1
 
 func _mouse_entered_thing(area: Area2D) -> void:
 	if things_mouse_on.has(area):
@@ -109,7 +129,6 @@ func _mouse_exited_thing(area: Area2D) -> void:
 	if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
 		return
 
-	print("ermmm why are the here")
 	area.get_parent().z_index = 0
 	gonna_mouse_collide = false
 
@@ -117,15 +136,13 @@ func _burner_area_entered(area: Area2D) -> void:
 	if area == pot_bottom_area:
 		pot_bottom_should_snap = true
 
-func _burner_area_exited(_area: Area2D) -> void:
-	print("its not slop")
-
 func _jug_lid_area_entered(area: Area2D) -> void:
 	if area == jug_top_area:
 		jug_lid_should_snap = true
 
-func _jug_lid_area_exited(_area: Area2D) -> void:
-	print("if its good")
+func _funnel_area_entered(area: Area2D) -> void:
+	if area == pot_top_area:
+		funnel_should_snap = true
 
 func thing_dragging_system(delta: float) -> void:
 	if not things_mouse_on.is_empty():
@@ -165,8 +182,8 @@ func thing_dragging_system(delta: float) -> void:
 			elif collision_body == jug_lid and jug_lid_snapped:
 				jug_lid_snapped = false
 
-			elif collision_body_area == pot_top_area and funnel_snapped:
-				funnel.global_position = pot.global_position - Vector2(0, 45)
+			if collision_body == pot and funnel_snapped:
+				funnel.global_position = pot.global_position - Vector2(0, 25)
 
 			elif collision_body == funnel and funnel_snapped:
 				funnel_snapped = false
@@ -177,5 +194,5 @@ func thing_dragging_system(delta: float) -> void:
 			if collision_body == jug and jug_lid_snapped:
 				jug_lid.global_position = jug.global_position - Vector2(0, 45)
 
-			elif collision_body_area == pot_top_area and funnel_snapped:
-				funnel.global_position = pot.global_position - Vector2(0, 45)
+			if collision_body == pot and funnel_snapped:
+				funnel.global_position = pot.global_position - Vector2(0, 25)

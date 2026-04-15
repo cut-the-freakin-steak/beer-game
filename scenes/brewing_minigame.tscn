@@ -12,12 +12,6 @@ size = Vector2(78.22223, 81.45447)
 [sub_resource type="LabelSettings" id="LabelSettings_382k5"]
 font_size = 32
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn8jr"]
-size = Vector2(128.00012, 128)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_382k5"]
-size = Vector2(127.999985, 128)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tke1d"]
 size = Vector2(128, 128)
 
@@ -32,6 +26,12 @@ size = Vector2(82.82355, 18.823536)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8y6p"]
 size = Vector2(82.82355, 18.823517)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn8jr"]
+size = Vector2(128.00012, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_382k5"]
+size = Vector2(127.999985, 128)
 
 [node name="BrewingMinigame" type="Control" unique_id=726642216]
 layout_mode = 3
@@ -70,62 +70,6 @@ position = Vector2(0, -23.272705)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Burner/Area2D" unique_id=1395963129]
 shape = SubResource("RectangleShape2D_3ycqy")
-
-[node name="JugLid" type="Sprite2D" parent="." unique_id=1655220614]
-position = Vector2(290.99997, 161)
-scale = Vector2(0.3593751, 0.06249994)
-texture = ExtResource("1_m8y6p")
-
-[node name="Label" type="Label" parent="JugLid" unique_id=1606652774]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -36.173866
-offset_top = -112.000015
-offset_right = -71.17387
-offset_bottom = -195.00002
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.74, 4.233)
-text = "jug lid"
-label_settings = SubResource("LabelSettings_382k5")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Area2D" type="Area2D" parent="JugLid" unique_id=1879626728 groups=["BrewingMouseInteractables"]]
-position = Vector2(6.1035156e-05, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="JugLid/Area2D" unique_id=1136228242]
-position = Vector2(6.1035156e-05, 0)
-shape = SubResource("RectangleShape2D_vn8jr")
-
-[node name="Funnel" type="Sprite2D" parent="." unique_id=1704878630]
-position = Vector2(41, 121)
-scale = Vector2(0.421875, 0.28125003)
-texture = ExtResource("1_m8y6p")
-
-[node name="Label" type="Label" parent="Funnel" unique_id=541565111]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -39.761734
-offset_top = -60.540527
-offset_right = -67.761734
-offset_bottom = -143.54053
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 1.29)
-text = "funnel"
-label_settings = SubResource("LabelSettings_vn8jr")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Area2D" type="Area2D" parent="Funnel" unique_id=309662974 groups=["BrewingMouseInteractables"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Funnel/Area2D" unique_id=1595487946]
-shape = SubResource("RectangleShape2D_382k5")
 
 [node name="Jug" type="Sprite2D" parent="." unique_id=2012766421]
 position = Vector2(239, 125.00001)
@@ -198,3 +142,59 @@ position = Vector2(0, 60.235313)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pot/BottomArea" unique_id=1771885118]
 position = Vector2(0, -1.88237)
 shape = SubResource("RectangleShape2D_m8y6p")
+
+[node name="JugLid" type="Sprite2D" parent="." unique_id=1655220614]
+position = Vector2(290.99997, 161)
+scale = Vector2(0.3593751, 0.06249994)
+texture = ExtResource("1_m8y6p")
+
+[node name="Label" type="Label" parent="JugLid" unique_id=1606652774]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.173866
+offset_top = -112.000015
+offset_right = -71.17387
+offset_bottom = -195.00002
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.74, 4.233)
+text = "jug lid"
+label_settings = SubResource("LabelSettings_382k5")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="JugLid" unique_id=1879626728 groups=["BrewingMouseInteractables"]]
+position = Vector2(6.1035156e-05, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JugLid/Area2D" unique_id=1136228242]
+position = Vector2(6.1035156e-05, 0)
+shape = SubResource("RectangleShape2D_vn8jr")
+
+[node name="Funnel" type="Sprite2D" parent="." unique_id=1704878630]
+position = Vector2(41, 121)
+scale = Vector2(0.421875, 0.28125003)
+texture = ExtResource("1_m8y6p")
+
+[node name="Label" type="Label" parent="Funnel" unique_id=541565111]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.761734
+offset_top = -60.540527
+offset_right = -67.761734
+offset_bottom = -143.54053
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 1.29)
+text = "funnel"
+label_settings = SubResource("LabelSettings_vn8jr")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="Funnel" unique_id=309662974 groups=["BrewingMouseInteractables"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Funnel/Area2D" unique_id=1595487946]
+shape = SubResource("RectangleShape2D_382k5")
