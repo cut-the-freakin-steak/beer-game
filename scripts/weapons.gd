@@ -22,19 +22,20 @@ func _process(_delta: float) -> void:
 			if Input.is_action_pressed("pick_up"):
 				player.has_weapon = true
 				has_weapon = true
-				$PickUpRange.queue_free()
+				$PickUpRange.monitoring = false
+				$PickUpRange.monitorable = false
+				var beer_weapon: Weapons = beer_weapon_scene.instantiate()
+				beer_weapon.has_weapon = true
+				beer_weapon.ran = true
+				$"../Player/Anchor".add_child(beer_weapon)
+				beer_weapon.global_position = weapon_default.global_position
 				queue_free()
-	if has_weapon == true and ran == false:
-		var beer_weapon: Weapons = beer_weapon_scene.instantiate()
-		$"../Player/Anchor".add_child(beer_weapon)
-		beer_weapon.global_position = weapon_default.global_position
-		new_weapon.emit()
-		ran = true
-
 	if has_weapon == true:
 		var mouse_position := get_global_mouse_position()
 		var angle := global_position.angle_to_point(mouse_position)
 		rotation = angle
+		var beer_weapon: Weapons = beer_weapon_scene.instantiate()
+		new_weapon.emit()
 		if Input.is_action_just_pressed("spitball"):
 			hide()
 		if Input.is_action_just_pressed("weapon2"):
@@ -42,7 +43,8 @@ func _process(_delta: float) -> void:
 		if Input.is_action_pressed("shoot") and visible == true:
 			if $Range.is_colliding():
 				var hit = $Range.get_collider()
-				if hit.is_in_group("enemy"):
-					hit.health -= damage
-					if hit.health == 0:
-						hit.queue_free()
+				if get_tree().has_group("enemy"):
+					if hit.is_in_group("enemy"):
+						hit.health -= damage
+						if hit.health <= 0:
+							hit.queue_free()

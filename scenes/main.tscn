@@ -20,5 +20,3 @@ position = Vector2(251, 159)
 position = Vector2(151, 79)
 
 [connection signal="new_weapon" from="BeerBottleWeapon" to="Player" method="_on_beer_bottle_weapon_new_weapon"]
-
-[editable path="Player"]

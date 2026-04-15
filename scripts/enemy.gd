@@ -47,16 +47,17 @@ func _physics_process(delta: float) -> void:
 			can_shoot = true
 
 	move_and_slide()
-	if velocity.x > 0:
-		zombie_animations.flip_h = false
-		zombie_animations.play("Walking")
-	elif velocity.x < 0:
-		zombie_animations.flip_h = true
-		zombie_animations.play("Walking")
-	if velocity.y < -5:
-		zombie_animations.play("Up")
-	elif velocity.y > 5:
-		zombie_animations.play("Down")
+	if is_instance_valid($"../Zombie"):
+		if velocity.x > 0:
+			zombie_animations.flip_h = false
+			zombie_animations.play("Walking")
+		elif velocity.x < 0:
+			zombie_animations.flip_h = true
+			zombie_animations.play("Walking")
+		if velocity.y < -5:
+			zombie_animations.play("Up")
+		elif velocity.y > 5:
+			zombie_animations.play("Down")
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area == player_hurtbox:
