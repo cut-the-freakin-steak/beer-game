@@ -45,6 +45,8 @@ func _process(_delta: float) -> void:
 				var hit = $Range.get_collider()
 				if get_tree().has_group("enemy"):
 					if hit.is_in_group("enemy"):
+						$AudioStreamPlayer2D.pitch_scale = randf_range(0.9, 1.1)
+						$AudioStreamPlayer2D.play()
 						hit.health -= damage
 						if hit.health <= 0:
 							hit.queue_free()
