@@ -11,6 +11,7 @@ class_name Enemy
 @onready var PlayerHealth: ProgressBar = $"../Player/HUD/HealthBar"
 @onready var bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
 @onready var BulletSpawner: Marker2D = $Anchor/Gun/BulletSpawner
+@onready var ZombieAnimations: AnimatedSprite2D = $"../Zombie/AnimatedSprite2D"
 var can_shoot = true
 var screen_size
 var wanted_distance = 90
@@ -43,6 +44,16 @@ func _physics_process(delta: float) -> void:
 			can_shoot = true
 
 	move_and_slide()
+	if velocity.x > 0:
+		ZombieAnimations.flip_h = false
+		ZombieAnimations.play("Walking")
+	elif velocity.x < 0:
+		ZombieAnimations.flip_h = true
+		ZombieAnimations.play("Walking")
+	if velocity.y < -5:
+		ZombieAnimations.play("Up")
+	elif velocity.y > 5:
+		ZombieAnimations.play("Down")
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area == PlayerHurtbox:

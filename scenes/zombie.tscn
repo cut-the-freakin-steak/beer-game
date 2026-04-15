@@ -1,12 +1,117 @@
 [gd_scene format=3 uid="uid://cf0diufvku22n"]
 
 [ext_resource type="Script" uid="uid://b23djmmgtwd07" path="res://scripts/enemy.gd" id="1_1vlb3"]
+[ext_resource type="Texture2D" uid="uid://c0wqh046qsxjj" path="res://assets/sprites/png sprits/zombie down.png" id="2_4gx57"]
+[ext_resource type="Texture2D" uid="uid://bp7ixi3r04ftg" path="res://assets/sprites/png sprits/zombie side to side.png" id="2_httt1"]
+[ext_resource type="Texture2D" uid="uid://cbi4tb8jves5i" path="res://assets/sprites/png sprits/zombie up.png" id="2_xepks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_httt1"]
-size = Vector2(16, 24)
+size = Vector2(20, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iblsu"]
+atlas = ExtResource("2_4gx57")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ida1p"]
+atlas = ExtResource("2_4gx57")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6hpf"]
+atlas = ExtResource("2_4gx57")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eskk2"]
+atlas = ExtResource("2_4gx57")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pfmu"]
+atlas = ExtResource("2_xepks")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fthk"]
+atlas = ExtResource("2_xepks")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aetfh"]
+atlas = ExtResource("2_xepks")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjlcg"]
+atlas = ExtResource("2_xepks")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xepks"]
+atlas = ExtResource("2_httt1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gx57"]
+atlas = ExtResource("2_httt1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycv6i"]
+atlas = ExtResource("2_httt1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjjxt"]
+atlas = ExtResource("2_httt1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7pfmu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iblsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ida1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6hpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eskk2")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pfmu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fthk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aetfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjlcg")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xepks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gx57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycv6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjjxt")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 6.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1vlb3"]
-size = Vector2(16, 24)
+size = Vector2(20, 30)
 
 [node name="Zombie" type="CharacterBody2D" unique_id=62291134]
 collision_layer = 18
@@ -17,11 +122,9 @@ metadata/_custom_type_script = "uid://b23djmmgtwd07"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=45074376]
 shape = SubResource("RectangleShape2D_httt1")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1978117513]
-offset_left = -8.0
-offset_top = -12.0
-offset_right = 8.0
-offset_bottom = 12.0
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=777843505]
+sprite_frames = SubResource("SpriteFrames_7pfmu")
+animation = &"Walking"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1980265965]
 collision_layer = 4

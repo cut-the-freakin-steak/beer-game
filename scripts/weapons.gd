@@ -17,7 +17,7 @@ var has_weapon: bool = false
 var ran: bool = false
 var default_weapon_place = Vector2.RIGHT
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if has_weapon == true:
 		var mouse_position := get_global_mouse_position()
 		var angle := global_position.angle_to_point(mouse_position)
