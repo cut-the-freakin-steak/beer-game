@@ -4,14 +4,10 @@ class_name Weapons
 signal new_weapon
 
 @export var damage = 2
-@onready var Player: CharacterBody2D = $"../Player"
-@onready var PlayerHurtbox: Area2D = $"../Player/HurtBox"
-@onready var WeaponDefault: Marker2D = $"../Player/Anchor/WeaponDefault"
-@onready var BeerWeaponScene: PackedScene = preload("res://scenes/beer_bottle_weapon.tscn")
-@onready var ZombieHitbox: Area2D = $"../../../Zombie/Hitbox"
-@onready var Zombie: CharacterBody2D = $"../../../Zombie"
-@onready var CopHitbox: Area2D = $"../../../Cop/Hitbox"
-@onready var Cop: CharacterBody2D = $"../../../Cop"
+@onready var player: CharacterBody2D = $"../Player"
+@onready var player_hurtbox: Area2D = $"../Player/HurtBox"
+@onready var weapon_default: Marker2D = $"../Player/Anchor/WeaponDefault"
+@onready var beer_weapon_scene: PackedScene = preload("res://scenes/beer_bottle_weapon.tscn")
 var can_shoot := true
 var has_weapon: bool = false
 var ran: bool = false
@@ -19,19 +15,19 @@ var default_weapon_place = Vector2.RIGHT
 
 func _process(_delta: float) -> void:
 	if ran == false:
-		if $PickUpRange.overlaps_area(PlayerHurtbox) == false:
+		if $PickUpRange.overlaps_area(player_hurtbox) == false:
 			$PickUpRange/Label.hide()
 		else:
 			$PickUpRange/Label.show()
 			if Input.is_action_pressed("pick_up"):
-				Player.has_weapon = true
+				player.has_weapon = true
 				has_weapon = true
 				$PickUpRange.queue_free()
 				queue_free()
 	if has_weapon == true and ran == false:
-		var BeerWeapon: Weapons = BeerWeaponScene.instantiate()
-		$"../Player/Anchor".add_child(BeerWeapon)
-		BeerWeapon.global_position = WeaponDefault.global_position
+		var beer_weapon: Weapons = beer_weapon_scene.instantiate()
+		$"../Player/Anchor".add_child(beer_weapon)
+		beer_weapon.global_position = weapon_default.global_position
 		new_weapon.emit()
 		ran = true
 

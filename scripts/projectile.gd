@@ -3,22 +3,22 @@ class_name Projectile
 
 @export var speed: float = 300.0
 @export var damage = 1
-@onready var ZombieHitbox: Area2D = $"../../../../Zombie/Hitbox"
-@onready var Zombie: CharacterBody2D = $"../../../../Zombie"
-@onready var CopHitbox: Area2D = $"../../../../Cop/Hitbox"
-@onready var Cop: CharacterBody2D = $"../../../../Cop"
+@onready var zombie_hitbox: Area2D = $"../../../../Zombie/Hitbox"
+@onready var zombie: CharacterBody2D = $"../../../../Zombie"
+@onready var cop_hitbox: Area2D = $"../../../../Cop/Hitbox"
+@onready var cop: CharacterBody2D = $"../../../../Cop"
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area == ZombieHitbox:
-		Zombie.health -= damage
+	if area == zombie_hitbox:
+		zombie.health -= damage
 		queue_free()
-		if Zombie.health == 0:
-			Zombie.queue_free()
-	elif area == CopHitbox:
-		Cop.health -= damage
+		if zombie.health == 0:
+			zombie.queue_free()
+	elif area == cop_hitbox:
+		cop.health -= damage
 		queue_free()
-		if Cop.health == 0:
-			Cop.queue_free()
+		if cop.health == 0:
+			cop.queue_free()

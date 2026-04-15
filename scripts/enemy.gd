@@ -6,12 +6,12 @@ class_name Enemy
 @export var damage: int = 20
 @export var health: int = 5
 @export var cooldown: float = 1
-@onready var Player: CharacterBody2D = $"../Player"
-@onready var PlayerHurtbox: Area2D = $"../Player/HurtBox"
-@onready var PlayerHealth: ProgressBar = $"../Player/HUD/HealthBar"
+@onready var player: CharacterBody2D = $"../Player"
+@onready var player_hurtbox: Area2D = $"../Player/HurtBox"
+@onready var player_health: ProgressBar = $"../Player/HUD/HealthBar"
 @onready var bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
-@onready var BulletSpawner: Marker2D = $Anchor/Gun/BulletSpawner
-@onready var ZombieAnimations: AnimatedSprite2D = $"../Zombie/AnimatedSprite2D"
+@onready var bullet_spawner: Marker2D = $Anchor/Gun/BulletSpawner
+@onready var zombie_animations: AnimatedSprite2D = $"../Zombie/AnimatedSprite2D"
 var can_shoot = true
 var screen_size
 var wanted_distance = 90
@@ -26,11 +26,11 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if ranged == false:
-		var direction = global_position.direction_to(Player.global_position)
+		var direction = global_position.direction_to(player.global_position)
 		velocity = direction * speed * delta
 	else:
-		var dis = global_position.distance_to(Player.global_position)
-		var direction = global_position.direction_to(Player.global_position)
+		var dis = global_position.distance_to(player.global_position)
+		var direction = global_position.direction_to(player.global_position)
 		if dis > wanted_distance + 10:
 			velocity = direction * speed * delta
 		elif dis < wanted_distance + 10:
@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		var player_position = $"../Player".global_position
 		var angle := global_position.angle_to_point(player_position)
 		$Anchor.rotation = angle
-		if $PlayerRange.overlaps_area(PlayerHurtbox) and can_shoot == true:
+		if $PlayerRange.overlaps_area(player_hurtbox) and can_shoot == true:
 			spawn_bullet()
 			can_shoot = false
 			await get_tree().create_timer(cooldown).timeout
@@ -48,25 +48,25 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	if velocity.x > 0:
-		ZombieAnimations.flip_h = false
-		ZombieAnimations.play("Walking")
+		zombie_animations.flip_h = false
+		zombie_animations.play("Walking")
 	elif velocity.x < 0:
-		ZombieAnimations.flip_h = true
-		ZombieAnimations.play("Walking")
+		zombie_animations.flip_h = true
+		zombie_animations.play("Walking")
 	if velocity.y < -5:
-		ZombieAnimations.play("Up")
+		zombie_animations.play("Up")
 	elif velocity.y > 5:
-		ZombieAnimations.play("Down")
+		zombie_animations.play("Down")
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area == PlayerHurtbox:
+	if area == player_hurtbox:
 		$"../Player/HurtSound".pitch_scale = randf_range(0.9, 1.1)
 		$"../Player/HurtSound".play()
-		PlayerHealth.value -= damage
+		player_health.value -= damage
 
 func spawn_bullet() -> void:
-	var direction = global_position.direction_to(Player.global_position)
+	var direction = global_position.direction_to(player.global_position)
 	var bullet: CharacterBody2D = bullet_scene.instantiate()
 	$Bullets.add_child(bullet)
-	bullet.global_position = BulletSpawner.global_position
+	bullet.global_position = bullet_spawner.global_position
 	bullet.velocity = bullet.speed * direction
