@@ -48,10 +48,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	if is_instance_valid($"../Zombie"):
-		if velocity.x > 0:
+		if velocity.x > 5:
 			zombie_animations.flip_h = false
 			zombie_animations.play("Walking")
-		elif velocity.x < 0:
+		elif velocity.x < -5:
 			zombie_animations.flip_h = true
 			zombie_animations.play("Walking")
 		if velocity.y < -5:

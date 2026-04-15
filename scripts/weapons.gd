@@ -33,14 +33,14 @@ func _process(_delta: float) -> void:
 	if has_weapon == true:
 		var mouse_position := get_global_mouse_position()
 		var angle := global_position.angle_to_point(mouse_position)
-		rotation = angle
 		var beer_weapon: Weapons = beer_weapon_scene.instantiate()
+		rotation = -angle / 200
 		new_weapon.emit()
 		if Input.is_action_just_pressed("spitball"):
 			hide()
 		if Input.is_action_just_pressed("weapon2"):
 			show()
-		if Input.is_action_pressed("shoot") and visible == true:
+		if Input.is_action_just_pressed("shoot") and visible == true:
 			if $Range.is_colliding():
 				var hit = $Range.get_collider()
 				if get_tree().has_group("enemy"):
