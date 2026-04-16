@@ -8,6 +8,7 @@ signal new_weapon
 @onready var player_hurtbox: Area2D = $"../Player/HurtBox"
 @onready var weapon_default: Marker2D = $"../Player/Anchor/WeaponDefault"
 @onready var beer_weapon_scene: PackedScene = preload("res://scenes/beer_bottle_weapon.tscn")
+@onready var axe_weapon_scene: PackedScene = preload("res://scenes/axe.tscn")
 var can_shoot := true
 var has_weapon: bool = false
 var ran: bool = false
@@ -24,12 +25,20 @@ func _process(_delta: float) -> void:
 				has_weapon = true
 				$PickUpRange.monitoring = false
 				$PickUpRange.monitorable = false
-				var beer_weapon: Weapons = beer_weapon_scene.instantiate()
-				beer_weapon.has_weapon = true
-				beer_weapon.ran = true
-				$"../Player/Anchor".add_child(beer_weapon)
-				beer_weapon.global_position = weapon_default.global_position
-				queue_free()
+				if $PickUpRange.get_parent() == $".":
+					var beer_weapon: Weapons = beer_weapon_scene.instantiate()
+					beer_weapon.has_weapon = true
+					beer_weapon.ran = true
+					$"../Player/Anchor".add_child(beer_weapon)
+					beer_weapon.global_position = weapon_default.global_position
+					queue_free()
+				elif $PickUpRange.get_parent() == $".":
+					var axe_weapon: Weapons = axe_weapon_scene.instantiate()
+					axe_weapon.has_weapon = true
+					axe_weapon.ran = true
+					$"../Player/Anchor".add_child(axe_weapon)
+					axe_weapon.global_position = weapon_default.global_position
+					queue_free()
 	if has_weapon == true:
 		var mouse_position := get_global_mouse_position()
 		var angle := global_position.angle_to_point(mouse_position)

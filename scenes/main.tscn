@@ -5,14 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://buhi0oatn170x" path="res://scenes/beer_bottle_weapon.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://knusnyrej03a" path="res://scenes/chest.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://0qs7yxi6q86" path="res://scenes/cop.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bnrjjpchc0nj3" path="res://scenes/axe.tscn" id="6_tefeu"]
 
 [node name="Main" type="Node2D" unique_id=1047284649]
 
 [node name="Player" parent="." unique_id=1451882741 instance=ExtResource("1_0wfyh")]
 position = Vector2(28, 31)
-
-[node name="Zombie" parent="." unique_id=62291134 instance=ExtResource("3_tbgi4")]
-position = Vector2(251, 159)
 
 [node name="BeerBottleWeapon" parent="." unique_id=1328153436 instance=ExtResource("4_jyhfs")]
 position = Vector2(151, 79)
@@ -22,5 +20,11 @@ position = Vector2(37, 94)
 
 [node name="Cop" parent="." unique_id=1413295619 instance=ExtResource("5_tbgi4")]
 position = Vector2(266, 38)
+
+[node name="Zombie" parent="." unique_id=62291134 instance=ExtResource("3_tbgi4")]
+position = Vector2(264, 158)
+
+[node name="Axe" parent="." unique_id=1688618915 instance=ExtResource("6_tefeu")]
+position = Vector2(116, 137)
 
 [connection signal="new_weapon" from="BeerBottleWeapon" to="Player" method="_on_beer_bottle_weapon_new_weapon"]
