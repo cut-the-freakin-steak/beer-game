@@ -94,7 +94,6 @@ func _process(delta: float):
 			if not things_mouse_on.is_empty():
 				var target: Area2D = things_mouse_on.back()
 				if target == jug_main_area:
-					print("raghh")
 					pass
 
 				elif target.get_parent() == jug:
@@ -108,7 +107,6 @@ func _process(delta: float):
 			if not things_mouse_on.is_empty():
 				var target: Area2D = things_mouse_on.back()
 				if target == pot_main_area:
-					print("waghh")
 					pass
 
 				elif target.get_parent() == pot:
