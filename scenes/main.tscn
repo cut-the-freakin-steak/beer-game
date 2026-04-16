@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cf0diufvku22n" path="res://scenes/zombie.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://buhi0oatn170x" path="res://scenes/beer_bottle_weapon.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://knusnyrej03a" path="res://scenes/chest.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://0qs7yxi6q86" path="res://scenes/cop.tscn" id="5_tbgi4"]
 
 [node name="Main" type="Node2D" unique_id=1047284649]
 
@@ -18,5 +19,8 @@ position = Vector2(151, 79)
 
 [node name="Chest" parent="." unique_id=251629384 instance=ExtResource("4_tbgi4")]
 position = Vector2(37, 94)
+
+[node name="Cop" parent="." unique_id=1413295619 instance=ExtResource("5_tbgi4")]
+position = Vector2(266, 38)
 
 [connection signal="new_weapon" from="BeerBottleWeapon" to="Player" method="_on_beer_bottle_weapon_new_weapon"]
